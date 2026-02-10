@@ -1,17 +1,17 @@
-import { Dumbbell } from 'lucide-react';
-import { WorkoutCard } from './workout-card';
-import type { getWorkoutsByDate } from '@/db/queries';
+"use client";
 
-type Workout = Awaited<ReturnType<typeof getWorkoutsByDate>>[number];
+import { WorkoutCard, type Workout } from "./workout-card";
 
-export function WorkoutList({ workouts }: { workouts: Workout[] }) {
+interface WorkoutListProps {
+  workouts: Workout[];
+}
+
+export function WorkoutList({ workouts }: WorkoutListProps) {
   if (workouts.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
-        <Dumbbell className="h-12 w-12 mb-4" />
-        <p className="text-lg font-medium">No workouts for this day</p>
-        <p className="text-sm">Select a different date or log a new workout.</p>
-      </div>
+      <p className="text-muted-foreground text-sm">
+        No workouts logged for this date.
+      </p>
     );
   }
 

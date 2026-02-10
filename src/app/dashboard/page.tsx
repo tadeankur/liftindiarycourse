@@ -1,35 +1,62 @@
-import { redirect } from 'next/navigation';
-import { auth } from '@clerk/nextjs/server';
-import { format } from 'date-fns';
+"use client";
 
-import { getWorkoutsByDate } from '@/db/queries';
-import { DatePicker } from './_components/date-picker';
-import { WorkoutList } from './_components/workout-list';
+import { useState } from "react";
+import { format } from "date-fns";
 
-export default async function DashboardPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ date?: string }>;
-}) {
-  const { userId } = await auth();
-  if (!userId) redirect('/');
+import { DatePicker } from "./_components/date-picker";
+import { WorkoutList } from "./_components/workout-list";
+import type { Workout } from "./_components/workout-card";
 
-  const params = await searchParams;
-  const dateParam = params.date ?? format(new Date(), 'yyyy-MM-dd');
+const MOCK_WORKOUTS: Record<string, Workout[]> = {
+  [format(new Date(), "yyyy-MM-dd")]: [
+    {
+      id: 1,
+      name: "Upper Body",
+      exercises: [
+        {
+          name: "Bench Press",
+          sets: [
+            { setNumber: 1, reps: 10, weight: 135, completed: true },
+            { setNumber: 2, reps: 8, weight: 155, completed: true },
+            { setNumber: 3, reps: 6, weight: 175, completed: false },
+          ],
+        },
+        {
+          name: "Overhead Press",
+          sets: [
+            { setNumber: 1, reps: 10, weight: 65, completed: true },
+            { setNumber: 2, reps: 8, weight: 75, completed: true },
+          ],
+        },
+      ],
+    },
+    {
+      id: 2,
+      name: "Core Work",
+      exercises: [
+        {
+          name: "Plank Hold",
+          sets: [
+            { setNumber: 1, reps: 1, weight: 0, completed: true },
+            { setNumber: 2, reps: 1, weight: 0, completed: true },
+          ],
+        },
+      ],
+    },
+  ],
+};
 
-  // Validate date format
-  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-  const date = dateRegex.test(dateParam)
-    ? dateParam
-    : format(new Date(), 'yyyy-MM-dd');
+export default function DashboardPage() {
+  const [date, setDate] = useState<Date>(new Date());
 
-  const workouts = await getWorkoutsByDate(userId, date);
+  const key = format(date, "yyyy-MM-dd");
+  const workouts = MOCK_WORKOUTS[key] ?? [];
 
   return (
-    <main className="mx-auto max-w-2xl px-4 py-8">
-      <div className="flex items-center justify-between mb-8">
+    <main className="mx-auto max-w-2xl px-4 py-8 space-y-6">
+      <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Workouts</h1>
-        <DatePicker selectedDate={date} />
+        <DatePicker date={date} onDateChange={setDate} />
       </div>
       <WorkoutList workouts={workouts} />
     </main>
