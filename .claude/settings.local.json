@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /Users/ankurtade/projects/liftindiarycourse log --oneline)",
+      "Bash(git -C /Users/ankurtade/projects/liftindiarycourse log --stat)",
+      "Bash(wc:*)",
+      "WebFetch(domain:clerk.com)",
+      "Bash(npm install:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run dev:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(printf:*)",
+      "Bash(/usr/local/share/gcm-core/git-credential-manager erase:*)",
+      "Bash(gh auth token:*)",
+      "mcp__neon__describe_table_schema"
+    ]
+  }
+}
