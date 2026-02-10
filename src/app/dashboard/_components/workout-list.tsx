@@ -1,5 +1,10 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+} from "@/components/ui/card";
 import { WorkoutCard, type Workout } from "./workout-card";
 
 interface WorkoutListProps {
@@ -9,9 +14,14 @@ interface WorkoutListProps {
 export function WorkoutList({ workouts }: WorkoutListProps) {
   if (workouts.length === 0) {
     return (
-      <p className="text-muted-foreground text-sm">
-        No workouts logged for this date.
-      </p>
+      <Card>
+        <CardContent className="flex flex-col items-center gap-4 py-8">
+          <p className="text-muted-foreground text-sm">
+            No workouts logged for this date
+          </p>
+          <Button>Log New Workout</Button>
+        </CardContent>
+      </Card>
     );
   }
 

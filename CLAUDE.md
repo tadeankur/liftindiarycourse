@@ -8,6 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Current docs:
 - `docs/ui.md` — UI component and date formatting standards
+- `docs/data-fetching.md` — Data fetching, database queries, and user data isolation
 
 ## Build & Development Commands
 
