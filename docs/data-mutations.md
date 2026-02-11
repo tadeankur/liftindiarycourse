@@ -179,6 +179,51 @@ export async function deleteWorkout(workoutId: string) {
 }
 ```
 
+## Post-Mutation Redirects
+
+**ALL redirects after a server action MUST be done client-side.** Do not use `redirect()` inside server actions.
+
+### Rules
+
+- **DO NOT** call `redirect()` from `next/navigation` inside server actions
+- **ALWAYS** perform redirects in the client component after the server action call resolves
+- Use `useRouter().push()` from `next/navigation` in the client component to navigate after a successful mutation
+
+### Correct — Client-side redirect
+
+```tsx
+"use client";
+
+import { useRouter } from "next/navigation";
+import { createWorkout } from "./actions";
+
+export function WorkoutForm() {
+  const router = useRouter();
+
+  async function handleSubmit() {
+    await createWorkout("Push Day", "2025-09-01");
+    router.push("/dashboard?date=2025-09-01");
+  }
+
+  return <button onClick={handleSubmit}>Create Workout</button>;
+}
+```
+
+### WRONG — redirect() inside server action
+
+```ts
+"use server";
+
+import { redirect } from "next/navigation";
+
+export async function createWorkout(name: string, date: string) {
+  // ... mutation logic ...
+
+  // DO NOT DO THIS — redirect belongs on the client
+  redirect(`/dashboard?date=${date}`);
+}
+```
+
 ## Full Example: End-to-End Mutation Flow
 
 ### 1. Data helper — `src/data/workouts.ts`
@@ -220,11 +265,15 @@ export async function createWorkout(date: string) {
 ```tsx
 "use client";
 
+import { useRouter } from "next/navigation";
 import { createWorkout } from "./actions";
 
 export function WorkoutForm() {
+  const router = useRouter();
+
   async function handleSubmit() {
     await createWorkout("2025-09-01");
+    router.push("/dashboard?date=2025-09-01");
   }
 
   return <button onClick={handleSubmit}>Create Workout</button>;

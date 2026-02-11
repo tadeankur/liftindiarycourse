@@ -35,6 +35,7 @@ export default function RootLayout({
       <html lang="en">
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          suppressHydrationWarning
         >
           <header className="flex justify-between items-center p-4 gap-4">
             <span className="text-lg font-bold">Lifting Diary</span>

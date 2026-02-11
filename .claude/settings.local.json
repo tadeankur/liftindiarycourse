@@ -15,7 +15,11 @@
       "Bash(printf:*)",
       "Bash(/usr/local/share/gcm-core/git-credential-manager erase:*)",
       "Bash(gh auth token:*)",
-      "mcp__neon__describe_table_schema"
+      "mcp__neon__describe_table_schema",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npx shadcn@latest add input label --yes)",
+      "Bash(npm run build:*)"
     ]
   }
 }
