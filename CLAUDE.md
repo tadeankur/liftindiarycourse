@@ -11,6 +11,7 @@ Current docs:
 - `docs/data-fetching.md` — Data fetching, database queries, and user data isolation
 - `docs/auth.md` — Authentication standards (Clerk)
 - `docs/data-mutations.md` — Data mutation standards (server actions, Zod validation, data helpers)
+- `docs/server-components.md` — Server component standards (async params, searchParams)
 
 ## Build & Development Commands
 
