@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -33,34 +34,36 @@ export interface Workout {
 
 export function WorkoutCard({ workout }: { workout: Workout }) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{workout.name}</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {workout.workoutExercises.map((we) => (
-          <div key={we.id}>
-            <p className="text-sm font-medium mb-2">{we.exercise.name}</p>
-            <div className="grid grid-cols-[auto_1fr_1fr_1fr] gap-x-4 gap-y-1 text-sm">
-              <span className="text-muted-foreground">Set</span>
-              <span className="text-muted-foreground">Weight</span>
-              <span className="text-muted-foreground">Reps</span>
-              <span className="text-muted-foreground">Done</span>
-              {we.sets.map((set) => (
-                <div
-                  key={set.id}
-                  className="contents"
-                >
-                  <span>{set.setNumber}</span>
-                  <span>{set.weight} lbs</span>
-                  <span>{set.reps}</span>
-                  <span>{set.completed ? "Yes" : "No"}</span>
-                </div>
-              ))}
+    <Link href={`/dashboard/workout/${workout.id}`} className="block">
+      <Card className="hover:bg-accent transition-colors cursor-pointer">
+        <CardHeader>
+          <CardTitle>{workout.name}</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {workout.workoutExercises.map((we) => (
+            <div key={we.id}>
+              <p className="text-sm font-medium mb-2">{we.exercise.name}</p>
+              <div className="grid grid-cols-[auto_1fr_1fr_1fr] gap-x-4 gap-y-1 text-sm">
+                <span className="text-muted-foreground">Set</span>
+                <span className="text-muted-foreground">Weight</span>
+                <span className="text-muted-foreground">Reps</span>
+                <span className="text-muted-foreground">Done</span>
+                {we.sets.map((set) => (
+                  <div
+                    key={set.id}
+                    className="contents"
+                  >
+                    <span>{set.setNumber}</span>
+                    <span>{set.weight} lbs</span>
+                    <span>{set.reps}</span>
+                    <span>{set.completed ? "Yes" : "No"}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
-      </CardContent>
-    </Card>
+          ))}
+        </CardContent>
+      </Card>
+    </Link>
   );
 }
