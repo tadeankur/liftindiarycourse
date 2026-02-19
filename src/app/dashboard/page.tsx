@@ -2,9 +2,10 @@ import { format } from "date-fns";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { getWorkoutsByDate } from "@/data/workouts";
-import { DashboardCalendar } from "./_components/dashboard-calendar";
+import { DatePicker } from "./_components/date-picker";
 import { WorkoutList } from "./_components/workout-list";
 
 export default async function DashboardPage({
@@ -25,22 +26,17 @@ export default async function DashboardPage({
     <main className="mx-auto max-w-5xl px-4 py-8 space-y-6">
       <h1 className="text-3xl font-bold">Workout Dashboard</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="space-y-2">
-          <h2 className="text-lg font-semibold">Select Date</h2>
-          <Card>
-            <CardContent className="flex justify-center p-4">
-              <DashboardCalendar date={date} />
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="space-y-2">
+      <div className="space-y-4">
+        <div className="flex items-center gap-4">
           <h2 className="text-lg font-semibold">
             Workouts for {format(date, "do MMM yyyy")}
           </h2>
-          <WorkoutList workouts={workouts} />
+          <DatePicker date={date} />
+          <Button asChild>
+            <Link href="/dashboard/workout/new">Log New Workout</Link>
+          </Button>
         </div>
+        <WorkoutList workouts={workouts} />
       </div>
     </main>
   );

@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -19,7 +18,6 @@ export function WorkoutList({ workouts }: WorkoutListProps) {
           <p className="text-muted-foreground text-sm">
             No workouts logged for this date
           </p>
-          <Button>Log New Workout</Button>
         </CardContent>
       </Card>
     );

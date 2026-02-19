@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
@@ -19,9 +20,10 @@ interface DatePickerProps {
 
 export function DatePicker({ date }: DatePickerProps) {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -41,6 +43,7 @@ export function DatePicker({ date }: DatePickerProps) {
           onSelect={(day) => {
             if (day) {
               router.push(`/dashboard?date=${format(day, "yyyy-MM-dd")}`);
+              setOpen(false);
             }
           }}
           initialFocus
