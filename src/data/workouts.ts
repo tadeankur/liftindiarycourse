@@ -5,6 +5,15 @@ import { eq, and } from "drizzle-orm";
 export async function getWorkoutById(userId: string, workoutId: number) {
   return db.query.workouts.findFirst({
     where: and(eq(workouts.id, workoutId), eq(workouts.userId, userId)),
+    with: {
+      workoutExercises: {
+        orderBy: (we, { asc }) => [asc(we.order)],
+        with: {
+          exercise: true,
+          sets: { orderBy: (s, { asc }) => [asc(s.setNumber)] },
+        },
+      },
+    },
   });
 }
 
