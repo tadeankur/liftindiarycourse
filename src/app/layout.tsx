@@ -39,7 +39,6 @@ export default function RootLayout({
           suppressHydrationWarning
         >
           <header className="flex justify-between items-center p-4 gap-4">
-            <span className="text-lg font-bold">Lifting Diary</span>
             <div className="flex items-center gap-4">
               <SignedOut>
                 <SignInButton mode="modal">
